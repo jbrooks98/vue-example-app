@@ -1,28 +1,64 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
-</template>
+<v-app>
 
+  <v-app-bar app>
+    Welcome To My Todo App <v-icon dark>mdi-wrench</v-icon>
+  </v-app-bar>
+
+  <!-- Sizes your content based upon application components -->
+  <v-content>
+
+          <div class='column'>
+        <todo-list v-bind:todos="todos"></todo-list>
+        <create-todo v-on:create-todo="createTodo"></create-todo>
+      </div>
+
+    <!-- Provides the application the proper gutter -->
+    <v-container fluid>
+    </v-container>
+  </v-content>
+
+  <v-footer app>
+    TODO APP
+  </v-footer>
+</v-app>
+</template>
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import TodoList from './components/TodoList';
+import CreateTodo from './components/CreateTodo';
 
 export default {
-  name: "app",
+  name: 'app',
   components: {
-    HelloWorld
-  }
+    TodoList,
+    CreateTodo,
+  },
+  data() {
+    return {
+      todos: [{
+        title: 'Todo 1',
+        project: 'Project A',
+        done: false,
+      }, {
+        title: 'Todo 2',
+        project: 'Project B',
+        done: true,
+      }, {
+        title: 'Todo 3',
+        project: 'Project C',
+        done: false,
+      }, {
+        title: 'Todo 4',
+        project: 'Project D',
+        done: false,
+      }],
+    };
+  },
+  methods: {
+    createTodo(newTodo) {
+      this.todos.push(newTodo);
+      alert('To-Do created!');
+    },
+  },
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
